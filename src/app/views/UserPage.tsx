@@ -6,7 +6,7 @@ import { MediaCard } from "../components/MediaCard";
 import { H1, H2 } from "../components/Typography";
 
 const UserPage = () => {
-  const [user, setUser] = useState<userResponseModel>();
+  const [userResponse, setUserResponse] = useState<userResponseModel>();
 
   useEffect(() => {
     fetchUsers();
@@ -15,13 +15,13 @@ const UserPage = () => {
   const fetchUsers = async () => {
     const { data } = await getUserAxios();
     console.log(JSON.stringify(data, null, 2));
-    setUser(data);
+    setUserResponse(data);
   };
 
   return (
     <MediaCard>
-      {user?.results.map((result) => (
-        <div style={{ margin: "3rem" }}>
+      {userResponse?.results.map((result, index) => (
+        <div style={{ margin: "3rem" }} key={result.email}>
           <div>
             <img src={result.picture.large} alt={"picture"} />
           </div>
@@ -33,17 +33,35 @@ const UserPage = () => {
           </div>
 
           <div>
-            <H2>Age:{result.dob.age}</H2>
+            <H2>Age: {result.dob.age}</H2>
           </div>
 
           <Container>
             <div style={{ margin: "1rem" }}>
-              <Button onClick={() => alert("Hola")} primary>
+              <Button
+                onClick={() => {
+                  const index = userResponse?.results.indexOf(result);
+                  userResponse?.results.splice(index, 1);
+                  setUserResponse({ ...userResponse });
+                }}
+                primary
+              >
                 Hi!
               </Button>
             </div>
+
             <div style={{ margin: "1rem" }}>
-              <Button onClick={() => alert("Adios!")} secondary={false}>
+              <Button
+                onClick={() => {
+                  userResponse.results = userResponse?.results?.filter((r) => {
+                    console.log("R::", r);
+                    return r.id !== result.id;
+                  });
+
+                  setUserResponse({ ...userResponse });
+                }}
+                secondary={false}
+              >
                 Bye!
               </Button>
             </div>
