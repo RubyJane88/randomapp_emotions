@@ -21,7 +21,7 @@ const UserPage = () => {
   return (
     <MediaCard>
       {user?.results.map((result) => (
-        <div>
+        <div style={{ margin: "3rem" }}>
           <div>
             <img src={result.picture.large} alt={"picture"} />
           </div>
@@ -37,8 +37,16 @@ const UserPage = () => {
           </div>
 
           <Container>
-            <Button primary> Violet Button</Button>
-            <Button secondary={false}> Green Button</Button>
+            <div style={{ margin: "1rem" }}>
+              <Button onClick={() => alert("Hola")} primary>
+                Hi!
+              </Button>
+            </div>
+            <div style={{ margin: "1rem" }}>
+              <Button onClick={() => alert("Adios!")} secondary={false}>
+                Bye!
+              </Button>
+            </div>
           </Container>
         </div>
       ))}
