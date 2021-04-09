@@ -48,7 +48,7 @@ const UserPage = () => {
                   }}
                   primary
                 >
-                  Hi!
+                  Vaya!
                 </Button>
               </div>
 
